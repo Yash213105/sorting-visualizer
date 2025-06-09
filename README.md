@@ -15,16 +15,6 @@ Sorting Algorithm Visualizer is a simple and interactive web application to visu
 - CSS
 - JavaScript
 
-## 🛠 How to Run Locally
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/algovis-sorting-visualizer.git
-   ```
-2. Navigate into the folder:
-   ```bash
-   cd sorting-visualizer
-   ```
-3. Open `sorting.html` in your browser (or use Live Server in VS Code)
 
 ## 📂 Project Structure
 ```
