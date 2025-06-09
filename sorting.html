@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoVis - Sorting Visualizer</title>
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #array {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 300px;
+      margin: 20px 0;
+      border: 1px solid white;
+    }
+    .bar {
+      margin: 0 2px;
+      background-color: #4fc3f7;
+      width: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      background: #03a9f4;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #0288d1;
+    }
+  </style>
+</head>
+<body>
+  <h1>AlgoVis - Sorting Visualizer</h1>
+  <button onclick="generateArray()">Generate New Array</button>
+  <button onclick="bubbleSort()">Bubble Sort</button>
+  <button onclick="insertionSort()">Insertion Sort</button>
+  <div id="array"></div>
+
+  <script>
+    let array = [];
+
+    function generateArray(size = 30) {
+      array = [];
+      const container = document.getElementById('array');
+      container.innerHTML = '';
+      for (let i = 0; i < size; i++) {
+        const value = Math.floor(Math.random() * 250) + 20;
+        array.push(value);
+        const bar = document.createElement('div');
+        bar.style.height = `${value}px`;
+        bar.classList.add('bar');
+        container.appendChild(bar);
+      }
+    }
+
+    async function bubbleSort() {
+      const bars = document.getElementsByClassName('bar');
+      for (let i = 0; i < array.length - 1; i++) {
+        for (let j = 0; j < array.length - i - 1; j++) {
+          bars[j].style.backgroundColor = 'red';
+          bars[j+1].style.backgroundColor = 'red';
+          if (array[j] > array[j+1]) {
+            await sleep(50);
+            [array[j], array[j+1]] = [array[j+1], array[j]];
+            bars[j].style.height = `${array[j]}px`;
+            bars[j+1].style.height = `${array[j+1]}px`;
+          }
+          bars[j].style.backgroundColor = '#4fc3f7';
+          bars[j+1].style.backgroundColor = '#4fc3f7';
+        }
+      }
+    }
+
+    async function insertionSort() {
+      const bars = document.getElementsByClassName('bar');
+      for (let i = 1; i < array.length; i++) {
+        let key = array[i];
+        let j = i - 1;
+        bars[i].style.backgroundColor = 'yellow';
+        await sleep(50);
+        while (j >= 0 && array[j] > key) {
+          array[j + 1] = array[j];
+          bars[j + 1].style.height = `${array[j + 1]}px`;
+          j--;
+          await sleep(50);
+        }
+        array[j + 1] = key;
+        bars[j + 1].style.height = `${key}px`;
+        bars[i].style.backgroundColor = '#4fc3f7';
+      }
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    generateArray();
+  </script>
+</body>
+</html>
